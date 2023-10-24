@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { Authcontext } from '../../AuthProvider/AuthProvider';
+
 const Register = () => {
 
-
-  const [alert,setAlert] = useState('')
+  const {createUser,loading} = useContext(Authcontext)
+ 
+  const [validalert,setValidAlert] = useState('')
 
   const handleRegister = e =>{
 
@@ -15,24 +18,26 @@ const Register = () => {
     const password = form.password.value;
 
     if (!name && !email && !password) {
-      return setAlert("please provied the password");
+      return setValidAlert('All Feild ar Requard')
     } else if (!name) {
-      return setAlert("please provied the name");
+      return setValidAlert("please provied the name");
     } else if (!email) {
-      return setAlert("please provied the email");
+      return setValidAlert("please provied the email");
     } else if (!password) {
-      return setAlert("please provied the passeord");
+      return setValidAlert("please provied the passeord");
     }
 
-    
-
-
-
+    createUser(email,password)
+    .then(result => {
+      const user = result.user;
+      
+    })
+    .catch(erorr => {
+      console.log(erorr.message)
+    })
 
   }
-
-
-
+    
     return (
       <section>
         <div className="px-4 py-12  sm:px-6 md:px-4 lg:px-24 lg:py-24">
@@ -73,6 +78,7 @@ const Register = () => {
                       className="w-full px-4 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
                     />
                   </div>
+                  <p>{validalert}</p>
                   <button className="block w-full bg-[#FF3811] text-white p-3 text-center rounded-md dark:text-gray-900  dark:bg-violet-400">
                     Sign in
                   </button>
@@ -84,6 +90,7 @@ const Register = () => {
                   </p>
                   <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
                 </div>
+
                 <div className="flex justify-center space-x-4">
                   <button
                     aria-label="Log in with Google"
@@ -124,7 +131,8 @@ const Register = () => {
                 </div>
                 <p className="text-xs text-center sm:px-6 dark:text-gray-400">
                   Already have an account?
-                  <Link to="/login"
+                  <Link
+                    to="/login"
                     rel="noopener noreferrer"
                     href="#"
                     className="underline dark:text-gray-100"
@@ -143,6 +151,7 @@ const Register = () => {
             </div>
           </div>
         </div>
+        
       </section>
     );
 };

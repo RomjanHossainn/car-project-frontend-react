@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
+import { useContext } from "react";
+import { Authcontext } from "../../AuthProvider/AuthProvider";
 const Login = () => {
+  const {name} = useContext(Authcontext);
+  console.log(name)
   return (
     <div className="px-4 py-12  sm:px-6 md:px-4 lg:px-40 lg:py-24">
       <div className="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-7xl sm:w-full">
