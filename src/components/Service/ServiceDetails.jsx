@@ -1,23 +1,41 @@
 import { useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 const ServiceDetails = () => {
-    const [service,setService] = useState({})
-    const {id} = useParams();
-    const loadedServices = useLoaderData();
 
+    const {id} = useParams()
+
+    const [serviceData,setServiceData] = useState(null)
+    
     useEffect(() => {
-        const findService = loadedServices.find(
-          (service) => service._id === id
-        );
-        setService(findService);
+        axios.get(`http://localhost:5000/services/${id}`)
+        .then((response) => {
+            setServiceData(response.data)
+        })
+        .catch((erorr) => {
+            console.log(erorr)
+        })
+    },[id])
 
-    },[id,loadedServices]);
+    if(!serviceData){
+        return (
+          <span className=" loading loading-lg text-2xl loading-spinner absolute left-1/2 top-1/2 text-gray-800"></span>
+        );
+    }
+
+    console.log(serviceData)
+
+    const  {img,title,price,_id} = serviceData || {}
 
 
     return (
         <div>
-            <img src={service.img} alt="" />
+            <img src={img} alt="" />
+            <p>{title}</p>
+            <p>Price : {price}</p>
+            <Link to={`/checkout/${_id}`}>
+            <button className="btn btn-secondary mt-5">CheckOut</button>
+            </Link>
         </div>
     );
 };

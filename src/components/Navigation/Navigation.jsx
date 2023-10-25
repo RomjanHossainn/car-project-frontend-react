@@ -2,15 +2,53 @@ import { Link } from "react-router-dom";
 import logo from '../../assets/logo.svg'
 import {AiOutlineShopping} from 'react-icons/ai'
 import { IoIosSearch } from "react-icons/io";
+import { useContext } from "react";
+import { Authcontext } from "../../AuthProvider/AuthProvider";
 const Navigation = () => {
 
-    const navLinks = <>
-        <li><Link>Home</Link></li>
-        <li><Link>About</Link></li>
-        <li><Link>Service</Link></li>
-        <li><Link>Blog</Link></li>
-        <li><Link>Contact</Link></li>
-    </>
+
+    const {users,logOut,loading} = useContext(Authcontext);
+
+    if(loading){
+      return (
+        <span className=" loading loading-lg text-2xl loading-spinner absolute left-1/2 top-1/2 text-gray-800"></span>
+      );
+    }
+
+    const handleLogout = () => {
+      logOut()
+      .then(() => {})
+      .catch(erorr => {erorr})
+    }
+
+    const navLinks = (
+      <>
+        <li>
+          <Link>Home</Link>
+        </li>
+        <li>
+          <Link>About</Link>
+        </li>
+        <li>
+          <Link>Service</Link>
+        </li>
+        <li>
+          <Link>Blog</Link>
+        </li>
+        <li>
+          <Link>Contact</Link>
+        </li>
+        {users?.email ? (
+          <li onClick={handleLogout}>
+            <Link>Logout</Link>
+          </li>
+        ) : (
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        )}
+      </>
+    );
     return (
       <div className=" navbar bg-base-100">
         <div className="navbar-start ">

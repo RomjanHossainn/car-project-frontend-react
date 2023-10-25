@@ -4,8 +4,8 @@ import { useContext, useState } from 'react';
 import { Authcontext } from '../../AuthProvider/AuthProvider';
 
 const Register = () => {
-
-  const {createUser,loading} = useContext(Authcontext)
+  
+  const {createUser} = useContext(Authcontext)
  
   const [validalert,setValidAlert] = useState('')
 

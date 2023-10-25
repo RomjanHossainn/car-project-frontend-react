@@ -1,10 +1,36 @@
 import { Link } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Authcontext } from "../../AuthProvider/AuthProvider";
 const Login = () => {
-  const {name} = useContext(Authcontext);
-  console.log(name)
+  const [validalert, setValidAlert] = useState("");
+  const {signInUser} = useContext(Authcontext);
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+   
+
+    if (!email && !password) {
+      return setValidAlert("All Feild ar Requard");
+    } else if (!email) {
+      return setValidAlert("please provied the email");
+    } else if (!password) {
+      return setValidAlert("please provied the passeord");
+    }
+
+    signInUser(email,password)
+    .then(result => {
+      console.log(result.user)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+
+  } 
   return (
     <div className="px-4 py-12  sm:px-6 md:px-4 lg:px-40 lg:py-24">
       <div className="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-7xl sm:w-full">
@@ -13,14 +39,14 @@ const Login = () => {
             <h1 className="text-2xl text-gray-600 font-bold text-center">
              Sign In
             </h1>
-            <form action="" className="space-y-6">
+            <form onSubmit={handleSignIn} action="" className="space-y-6">
               
               <div className="space-y-1 text-sm">
                 <label className="block dark:text-gray-400">Email</label>
                 <input
                   type="email"
                   name="email"
-                  id="password"
+                  id=""
                   placeholder="Email"
                   className="w-full px-4 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
                 />
@@ -30,11 +56,12 @@ const Login = () => {
                 <input
                   type="password"
                   name="password"
-                  id="password"
+                  id=""
                   placeholder="Password"
                   className="w-full px-4 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
                 />
               </div>
+              <p>{validalert}</p>
               <button className="block w-full bg-[#FF3811] text-white p-3 text-center rounded-md dark:text-gray-900  dark:bg-violet-400">
                 Sign in
               </button>
