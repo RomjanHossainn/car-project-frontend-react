@@ -5,6 +5,7 @@ export const Authcontext = createContext(null)
 
 const AuthProvider = ({children}) => {
 
+
     const [users,setUsers] = useState(null);
     const [loading,setLoading] = useState(true);
 
@@ -19,9 +20,12 @@ const AuthProvider = ({children}) => {
     }
 
     const logOut = () => {
+        setLoading(true)
         return signOut(auth)
+    
     }
 
+    
     
 
     useEffect(() =>{
@@ -38,6 +42,10 @@ const AuthProvider = ({children}) => {
         }
 
     },[])
+
+
+
+
 
     const userInfo = {
         users,

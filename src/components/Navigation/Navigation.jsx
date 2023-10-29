@@ -6,7 +6,6 @@ import { useContext } from "react";
 import { Authcontext } from "../../AuthProvider/AuthProvider";
 const Navigation = () => {
 
-
     const {users,logOut,loading} = useContext(Authcontext);
 
     if(loading){
@@ -15,16 +14,21 @@ const Navigation = () => {
       );
     }
 
+   
+
     const handleLogout = () => {
       logOut()
       .then(() => {})
       .catch(erorr => {erorr})
     }
 
+    
+
     const navLinks = (
       <>
         <li>
           <Link>Home</Link>
+          
         </li>
         <li>
           <Link>About</Link>

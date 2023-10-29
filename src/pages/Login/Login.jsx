@@ -3,6 +3,7 @@ import loginImg from "../../assets/images/login/login.svg";
 import { useContext, useState } from "react";
 import { Authcontext } from "../../AuthProvider/AuthProvider";
 const Login = () => {
+
   const [validalert, setValidAlert] = useState("");
   const {signInUser} = useContext(Authcontext);
 
@@ -32,6 +33,7 @@ const Login = () => {
 
   } 
   return (
+
     <div className="px-4 py-12  sm:px-6 md:px-4 lg:px-40 lg:py-24">
       <div className="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-7xl sm:w-full">
         <div className="grid  items-center justify-center grid-cols-1  lg:grid-cols-2 rounded-xl gap-5">
