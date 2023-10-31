@@ -5,6 +5,8 @@ import ServiceDetails from "./components/Service/ServiceDetails";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Checkout from "./pages/Checkout/Checkout";
+import CheckoutPrivet from "./pages/Checkout/CheckoutPrivet";
+import YourOrders from "./pages/YourOrders/YourOrders";
 
 
 
@@ -31,10 +33,17 @@ const router = createBrowserRouter([
         element: <Login></Login>,
       },
       {
-        path: "/checkout/:id",
-        element : <Checkout></Checkout>
+        path : '/yourorders',
+        element : <YourOrders></YourOrders>
       },
-      
+      {
+        path: "/checkout/:id",
+        element: (
+          <CheckoutPrivet>
+            <Checkout></Checkout>
+          </CheckoutPrivet>
+        ),
+      },
     ],
   },
 ]);

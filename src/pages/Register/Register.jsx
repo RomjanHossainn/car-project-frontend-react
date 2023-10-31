@@ -1,14 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
 import { useContext, useState } from 'react';
 import { Authcontext } from '../../AuthProvider/AuthProvider';
 
 const Register = () => {
   
-  const {createUser} = useContext(Authcontext)
+  const {createUser,location} = useContext(Authcontext)
  
   const [validalert,setValidAlert] = useState('')
 
+   const navigate = useNavigate();
+
+   
+  
   const handleRegister = e =>{
 
     e.preventDefault();
@@ -30,7 +34,7 @@ const Register = () => {
     createUser(email,password)
     .then(result => {
       const user = result.user;
-      
+      navigate(location ? location : '/')
     })
     .catch(erorr => {
       console.log(erorr.message)

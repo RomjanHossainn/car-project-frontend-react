@@ -14,6 +14,7 @@ const Navigation = () => {
       );
     }
 
+
    
 
     const handleLogout = () => {
@@ -28,7 +29,6 @@ const Navigation = () => {
       <>
         <li>
           <Link>Home</Link>
-          
         </li>
         <li>
           <Link>About</Link>
@@ -43,9 +43,12 @@ const Navigation = () => {
           <Link>Contact</Link>
         </li>
         {users?.email ? (
-          <li onClick={handleLogout}>
-            <Link>Logout</Link>
-          </li>
+          <div className="flex items-center gap-5">
+            <li onClick={handleLogout}>
+              <Link>Logout</Link>
+            </li>
+            <Link to="/yourorders">Your Order</Link>
+          </div>
         ) : (
           <li>
             <Link to="/login">Login</Link>

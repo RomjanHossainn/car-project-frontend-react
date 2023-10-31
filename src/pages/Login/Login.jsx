@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import { useContext, useState } from "react";
 import { Authcontext } from "../../AuthProvider/AuthProvider";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
 const Login = () => {
 
   const [validalert, setValidAlert] = useState("");
-  const {signInUser} = useContext(Authcontext);
+  const { signInUser, getCurrentLocation } = useContext(Authcontext);
+
+  const navigate = useNavigate()
+
+  const currenLocation = useLocation();
+  
+  getCurrentLocation(currenLocation.state)
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -24,7 +32,7 @@ const Login = () => {
 
     signInUser(email,password)
     .then(result => {
-      console.log(result.user)
+      navigate(currenLocation ? currenLocation.state : '/')
     })
     .catch(error => {
       console.log(error)
@@ -32,17 +40,32 @@ const Login = () => {
 
 
   } 
-  return (
 
+
+  const provieder = new GoogleAuthProvider();
+  const handleGoogle = () => {
+    console.log('click')
+    signInWithPopup(auth,provieder)
+    .then(result => {
+      const user = result.user;
+    })
+    .catch(erorr => {
+      console.log(erorr.message)
+    })
+  }
+  
+
+
+
+  return (
     <div className="px-4 py-12  sm:px-6 md:px-4 lg:px-40 lg:py-24">
       <div className="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-7xl sm:w-full">
         <div className="grid  items-center justify-center grid-cols-1  lg:grid-cols-2 rounded-xl gap-5">
           <div className="w-full border max-w-xl mx-auto p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
             <h1 className="text-2xl text-gray-600 font-bold text-center">
-             Sign In
+              Sign In
             </h1>
             <form onSubmit={handleSignIn} action="" className="space-y-6">
-              
               <div className="space-y-1 text-sm">
                 <label className="block dark:text-gray-400">Email</label>
                 <input
@@ -75,6 +98,7 @@ const Login = () => {
             </div>
             <div className="flex justify-center space-x-4">
               <button
+                onClick={handleGoogle}
                 aria-label="Log in with Google"
                 className="p-3 rounded-sm"
               >

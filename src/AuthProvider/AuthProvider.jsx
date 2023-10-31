@@ -25,7 +25,7 @@ const AuthProvider = ({children}) => {
     
     }
 
-    
+
     
 
     useEffect(() =>{
@@ -44,16 +44,24 @@ const AuthProvider = ({children}) => {
     },[])
 
 
-
+    const [location,setLocation] = useState('')
+    const getCurrentLocation = (location) => {
+      setLoading(true)
+      setLocation(location)
+    };
+    
+    
 
 
     const userInfo = {
-        users,
-        loading,
-        createUser,
-        signInUser,
-        logOut,
-    }
+      users,
+      loading,
+      createUser,
+      signInUser,
+      logOut,
+      getCurrentLocation,
+      location
+    };
     return (
       <Authcontext.Provider 
         value={userInfo}>{children}

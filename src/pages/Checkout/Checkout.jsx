@@ -20,7 +20,7 @@ const Checkout = () => {
 
     if(loading){
         return (
-          <span className=" loading loading-lg text-2xl loading-spinner absolute left-1/2 top-1/2 text-gray-800"></span>
+          <span className=" loading loading-lg text-2xl loading-spinner  left-1/2 top-1/2 text-gray-800"></span>
         );
     }
 
@@ -36,11 +36,12 @@ const Checkout = () => {
 
     const firstName = form.firstname.value;
     const lastName = form.lastname.value;
-    const email = form.email.value;
     const phone = form.phone.value;
     const date = form.date.value;
     const address = form.address.value;
     const textareia = form.textareia.value;
+
+    const email = users?.email;
 
     
     
@@ -54,6 +55,8 @@ const Checkout = () => {
       address,
       order_id :_id
     };
+
+
 
     axios.post("http://localhost:5000/postorder",orderInfo)
     .then((result => {
@@ -129,6 +132,7 @@ const Checkout = () => {
             <div className="relative z-0 w-full mb-6 group">
               <input
                 type="email"
+                readOnly
                 defaultValue={users?.email}
                 name="email"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"

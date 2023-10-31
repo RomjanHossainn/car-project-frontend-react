@@ -4,6 +4,9 @@ import man1 from "../../assets/images/team/man1.png";
 import man2 from "../../assets/images/team/man2.png";
 
 const WhatCustomer = () => {
+
+  
+    
      const responsive = {
        desktop: {
          breakpoint: { max: 3000, min: 1024 },
@@ -108,6 +111,9 @@ const WhatCustomer = () => {
             believable.
           </p>
         </div>
+
+
+
         <div>
           <div className="flex items-center gap-3">
             <img src={man2} alt="" />
